@@ -15,7 +15,6 @@ This repository consists of the following files:
 | Nextflow Pipeline     | `main.nf` | Consists of a full Nextflow pipeline that processes the ATACseq data from Fernandes et al. 2024.    |
 | Project Report  | `final-project-report.Rmd`   | Consists of the final project report.   |
 | Project Report HTML | `final-project-report.html` | Consists of the project report in `.html` format. |
-| Project Report PDF | `final-project-report.pdf` | Consists of the project report in `.pdf` format. |
 | RMarkdown Diffbind Analysis  | `final-project-diffbind.Rmd`   | Consists of an RMarkdown file that runs ATAC-seq Differential Accessibility Analysis with Diffbind.   |
 | RMarkdown Diffbind Analysis HTML | `final-project-diffbind.html` | Consists of our Diffbind analysis in `.html` format. |
 | RMarkdown Diffbind Analysis PDF | `final-project-diffbind.pdf` | Consists of our Diffbind analysis in `.pdf` format. |
@@ -23,6 +22,7 @@ This repository consists of the following files:
 | Samples | `samples/` | Consists of samples downloaded from original publication. The folder in this repository is empty; please refer to notes below.* |
 | Nextflow Modules | `modules/` | Consists of all Nextflow modules and their `main.nf` files used to run the pipeline. |
 | References | `refs/` | Consists of all reference files, including adapter sequences, GRCm39 genome fasta and GTF file, and mm10 ENCODE blacklist. The folder in this repository only contains the adapter file; please refer to notes below.* |
+| Results | `results/` | Consists of all plot images in project report. |
 | Nextflow Configuration | `nextflow.config` | Consists of all parameters and settings used to run the Nextflow pipeline. |  
 
 Steps to successfully run the pipeline:
