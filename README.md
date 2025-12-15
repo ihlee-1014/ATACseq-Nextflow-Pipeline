@@ -23,16 +23,15 @@ This repository consists of the following files:
 | Samples | `samples/` | Consists of samples downloaded from original publication. The folder in this repository is empty; please refer to notes below.* |
 | Nextflow Modules | `modules/` | Consists of all Nextflow modules and their `main.nf` files used to run the pipeline. |
 | References | `refs/` | Consists of all reference files, including adapter sequences, GRCm39 genome fasta and GTF file, and mm10 ENCODE blacklist. The folder in this repository only contains the adapter file; please refer to notes below.* |
-| Nextflow Results | `results/` | Consists of all results from each Nextflow module. |
 | Nextflow Configuration | `nextflow.config` | Consists of all parameters and settings used to run the Nextflow pipeline. |  
 
 Steps to successfully run the pipeline:
-1. Comment out everything past line 85 in `main.nf`. This contains everything before running R Diffbind. The command is:
+1. Comment out everything past line 87 in `main.nf`. This contains everything before running R Diffbind. The command is:
 ```
 nextflow run main.nf -profile singularity,local
 ```
 2. After getting outputs from SAMTOOLS_IDX and MACS3_CALLPEAK, run the R Diffbind analysis.
-3. After getting the `.bed` outputs from R Diffbind, uncomment everything past line 85 in `main.nf` and run:
+3. After getting the `.bed` outputs from R Diffbind, uncomment everything past line 87 in `main.nf` and run:
 ```
 nextflow run main.nf -profile singularity,local -resume
 ```
