@@ -82,15 +82,15 @@ The top enriched GO biological processes are consistent with functions of dendri
 
 Below are screenshots of the top results from the "knownResults" output from HOMER `findMotifsGenome` for both cDC1 and cDC2 samples:  
 
-![cDC1 Top 10 Motifs](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/findmotifsgenome/cdc1_top10_knownResults.png)
-![cDC2 Top 10 Motifs](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/findmotifsgenome/cdc2_top10_knownResults.png)
+![cDC1 Top 10 Motifs](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cdc1_top10_knownResults.png)
+![cDC2 Top 10 Motifs](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cdc2_top10_knownResults.png)
 Comparing the motif enrichment results between cDC1 and cDC2, the data is highly consistent with known dendritic cell biology while also highlighting meaningful cell-type-specific differences. In both groups, ETS-family motifs (i.e. PU.1 and SpiB) are the most significantly enriched, which is expected given their central role in dendritic cell lineage specification and confirms that the ATAC-seq peaks capture biologically relevant regulatory regions. However, cDC2 shows a stronger enrichment for bZIP family motifs (i.e. JunB, Fos, BATF, ATF3, FOSL family members), indicating a greater contribution of AP-1-associated regulatory programs in the cDC2 group. On the other hand, in cDC1, ETS-related motifs dominate more strongly and bZIP motifs are less prominent. Overall, these results suggest that the ATAC-seq experiment succeeded technically and reflected biologically meaningful differences between sample groups.
 
 Using our generated matrices for each cell type, we will recreate figures 6A and 6D from the original paper:
 
-![cDC1 Heatmap](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/plotheatmap/cDC1_heatmap.png)
+![cDC1 Heatmap](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cDC1_heatmap.png)
 
-![cDC2 Heatmap](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/plotheatmap/cDC2_heatmap.png)
+![cDC2 Heatmap](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cDC2_heatmap.png)
 
 Overall, the reproduced heatmaps are broadly consistent with the original publication in terms of ATAC-seq quality and global signal structure, but they differ slightly in biological contexts and how the signal is organized. In both the original figures and the reproduced figures, there is a clear, sharp enrichment of signal at the TSS with flanking nucleosomal signal, indicating successful ATAC-seq and comparable chromatin accessibility profiles in cDC1 and cDC2 cells. The presence of a strong central NFR and symmetric signal decay on either side in the reproduced heatmaps mirrors the pattern from the original paper. However, a key difference is that the original paper's figures are separated into *Gain* and *Loss* categories and visualized across different genotypes or conditions, which highlights condition-specific changes in accessibility. On the other hand, the reproduced heatmaps are not explicitly divided into gain/loss groups and present aggregated signal across TSS clusters, emphasizing overall accessibility and reproducibility rather than directional changes. In conclusion, the reproduced heatmaps reflect QC and global accessibility validation, and the original figures demonstrate condition-dependent chromatin remodeling.
 

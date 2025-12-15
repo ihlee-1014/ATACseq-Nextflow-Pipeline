@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.5.31)  15 DEC 2025 03:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.5.31)  15 DEC 2025 03:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -557,55 +557,52 @@ File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 {/share/pkg.8/texlive/2023/install/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 }{/share/pkg.8/texlive/2023/install/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] [
 2]
-</projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/fi
-ndmotifsgenome/cdc1_top10_knownResults.png, id=24, 1443.3925pt x 653.44125pt>
+</projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cd
+c1_top10_knownResults.png, id=24, 1443.3925pt x 653.44125pt>
 File: /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/resul
-ts/findmotifsgenome/cdc1_top10_knownResults.png Graphic file (type png)
+ts/cdc1_top10_knownResults.png Graphic file (type png)
 <use /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/result
-s/findmotifsgenome/cdc1_top10_knownResults.png>
+s/cdc1_top10_knownResults.png>
 Package pdftex.def Info: /projectnb/bf528/students/ihlee14/final-project-templa
-te-ihlee-1014/results/findmotifsgenome/cdc1_top10_knownResults.png  used on inp
-ut line 264.
+te-ihlee-1014/results/cdc1_top10_knownResults.png  used on input line 264.
 (pdftex.def)             Requested size: 469.75774pt x 212.66501pt.
-</projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/fi
-ndmotifsgenome/cdc2_top10_knownResults.png, id=26, 1445.4pt x 659.46375pt>
+</projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cd
+c2_top10_knownResults.png, id=26, 1445.4pt x 659.46375pt>
 File: /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/resul
-ts/findmotifsgenome/cdc2_top10_knownResults.png Graphic file (type png)
+ts/cdc2_top10_knownResults.png Graphic file (type png)
 <use /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/result
-s/findmotifsgenome/cdc2_top10_knownResults.png>
+s/cdc2_top10_knownResults.png>
 Package pdftex.def Info: /projectnb/bf528/students/ihlee14/final-project-templa
-te-ihlee-1014/results/findmotifsgenome/cdc2_top10_knownResults.png  used on inp
-ut line 265.
+te-ihlee-1014/results/cdc2_top10_knownResults.png  used on input line 265.
 (pdftex.def)             Requested size: 469.74944pt x 214.32317pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 264--280
 []
  []
 
-</projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/pl
-otheatmap/cDC1_heatmap.png, id=27, 472.6458pt x 685.48096pt>
+</projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cD
+C1_heatmap.png, id=27, 472.6458pt x 685.48096pt>
 File: /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/resul
-ts/plotheatmap/cDC1_heatmap.png Graphic file (type png)
+ts/cDC1_heatmap.png Graphic file (type png)
 <use /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/result
-s/plotheatmap/cDC1_heatmap.png>
+s/cDC1_heatmap.png>
 Package pdftex.def Info: /projectnb/bf528/students/ihlee14/final-project-templa
-te-ihlee-1014/results/plotheatmap/cDC1_heatmap.png  used on input line 286.
+te-ihlee-1014/results/cDC1_heatmap.png  used on input line 286.
 (pdftex.def)             Requested size: 448.4989pt x 650.4606pt.
 
 LaTeX Warning: Float too large for page by 23.97502pt on input line 288.
 
 [3 </projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results
-/findmotifsgenome/cdc1_top10_knownResults.png> </projectnb/bf528/students/ihlee
-14/final-project-template-ihlee-1014/results/findmotifsgenome/cdc2_top10_knownR
-esults.png>]
-</projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/pl
-otheatmap/cDC2_heatmap.png, id=34, 472.6458pt x 685.48096pt>
+/cdc1_top10_knownResults.png> </projectnb/bf528/students/ihlee14/final-project-
+template-ihlee-1014/results/cdc2_top10_knownResults.png>]
+</projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cD
+C2_heatmap.png, id=34, 472.6458pt x 685.48096pt>
 File: /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/resul
-ts/plotheatmap/cDC2_heatmap.png Graphic file (type png)
+ts/cDC2_heatmap.png Graphic file (type png)
 <use /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/result
-s/plotheatmap/cDC2_heatmap.png>
+s/cDC2_heatmap.png>
 Package pdftex.def Info: /projectnb/bf528/students/ihlee14/final-project-templa
-te-ihlee-1014/results/plotheatmap/cDC2_heatmap.png  used on input line 292.
+te-ihlee-1014/results/cDC2_heatmap.png  used on input line 292.
 (pdftex.def)             Requested size: 448.4989pt x 650.4606pt.
 
 LaTeX Warning: Float too large for page by 23.97502pt on input line 294.
@@ -630,9 +627,8 @@ te-ihlee-1014/results/cdc2_volcano.png  used on input line 320.
 (pdftex.def)             Requested size: 469.77467pt x 298.02179pt.
 [4 </projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results
 /cdc1_volcano.png>] [5 </projectnb/bf528/students/ihlee14/final-project-templat
-e-ihlee-1014/results/plotheatmap/cDC1_heatmap.png>] [6 </projectnb/bf528/studen
-ts/ihlee14/final-project-template-ihlee-1014/results/plotheatmap/cDC2_heatmap.p
-ng>]
+e-ihlee-1014/results/cDC1_heatmap.png>] [6 </projectnb/bf528/students/ihlee14/f
+inal-project-template-ihlee-1014/results/cDC2_heatmap.png>]
 </projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/ig
 v_cdc1_Maged1.png, id=55, 1445.4pt x 445.665pt>
 File: /projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/resul
@@ -677,8 +673,8 @@ nal-project-template-ihlee-1014/results/igv_cdc1_Spib.png> </projectnb/bf528/st
 udents/ihlee14/final-project-template-ihlee-1014/results/igv_cdc2_Spib.png>] (.
 /final-project-report.aux) ) 
 Here is how much of TeX's memory you used:
- 13733 strings out of 476025
- 224167 string characters out of 5785027
+ 13731 strings out of 476025
+ 223638 string characters out of 5785027
  1866388 words of memory out of 5000000
  33912 multiletter control sequences out of 15000+600000
  535703 words of font info for 75 fonts, out of 8000000 for 9000
