@@ -1,0 +1,162 @@
+---
+# title: "final-project-diffbind"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# ATAC-seq Differential Accessibility Analysis with DiffBind
+To identify chromatin regions with different accessibility between WT and KO conditions
+in cDC1 and cDC2 cells, we will perform Diffbind, DESeq2, and TMM normalization as per
+Fernandes et al. 2024.
+
+```{r, include=FALSE, warning=FALSE}
+#BiocManager::install('DiffBind')
+#BiocManager::install('rtracklater')
+#BiocManager::install("edgeR")
+library(DiffBind)
+library(tidyverse)
+```
+
+We will first create an output directory for results.
+```{r, warning=FALSE}
+dir.create("results/diffbind", showWarnings = FALSE, recursive = TRUE)
+```
+
+Then, we will prepare sample information for cDC1 and cDC2.
+```{r, warning=FALSE}
+samples_cdc1 <- data.frame(
+  SampleID = c("WT1_rep1", "WT2_rep1", "KO1_rep1", "KO2_rep1"),
+  Condition = c("WT", "WT", "KO", "KO"),
+  Replicate = c(1, 2, 1, 2),
+  bamReads = paste0("results/samtools_idx/", c("WT1_rep1", "WT2_rep1", "KO1_rep1", "KO2_rep1"), ".noMT.bam"),
+  Peaks = paste0("results/macs3_callpeaks/", c("WT1_rep1", "WT2_rep1", "KO1_rep1", "KO2_rep1"), "_peaks.narrowPeak"),
+  PeakCaller = "narrowPeak"
+)
+
+samples_cdc2 <- data.frame(
+  SampleID = c("WT1_rep2", "WT2_rep2", "KO1_rep2", "KO2_rep2"),
+  Condition = c("WT", "WT", "KO", "KO"),
+  Replicate = c(1, 2, 1, 2),
+  bamReads = paste0("results/samtools_idx/", c("WT1_rep2", "WT2_rep2", "KO1_rep2", "KO2_rep2"), ".noMT.bam"),
+  Peaks = paste0("results/macs3_callpeaks/", c("WT1_rep2", "WT2_rep2", "KO1_rep2", "KO2_rep2"), "_peaks.narrowPeak"),
+  PeakCaller = "narrowPeak"
+)
+```
+
+We will first perform analysis on cDC1 cells.
+```{r, message=FALSE, warning=FALSE}
+# read sample sheet and loads all peak files into a DiffBind object
+dba_cdc1 <- dba(sampleSheet = samples_cdc1)
+```
+
+We will then count the reads in consensus peaks, which consists of creating consensus peaks
+where peaks must appear in at least 2 samples (`minOverlap` = 2), counting how many ATAC-seq
+reads from each BAM file overlap each consensus peak, and normalizing with TMM (Trimmed Mean
+of M-values) to account for library size differences. This results in a count matrix where
+rows = peaks and columns = samples.
+```{r, message=FALSE, warning=FALSE}
+dba_cdc1 <- dba.count(dba_cdc1, minOverlap = 2, score = DBA_SCORE_TMM_MINUS_FULL)
+```
+
+Then, we will set up a comparison between WT and KO conditions. This requires at least 2
+samples per group (`minMembers` = 2).
+```{r, message=FALSE, warning=FALSE}
+dba_cdc1 <- dba.contrast(dba_cdc1, categories = DBA_CONDITION, minMembers = 2)
+```
+
+We will now run statistical analysis with DESeq2. DESEq2 will model count data with negative
+binomial distribution, estimate variance between replicates, and calculate p-values to determine
+if differences are significant. Since we already filtered ENCODE blacklist regions, `bBlacklist`
+and `bGreylist` are set to FALSE.
+```{r, message=FALSE, warning=FALSE}
+dba_cdc1 <- dba.analyze(dba_cdc1, method = DBA_DESEQ2, bBlacklist = FALSE, bGreylist = FALSE)
+```
+
+We will then extract results. `th = 1` (p-value < 1) extracts ALL peaks. `bCounts = FALSE`
+excludes raw read counts, which keeps the file smaller. The results include coordinates,
+fold change (KO vs. WT), p-value, and FDR.
+```{r, warning=FALSE}
+diff_cdc1_df <- as.data.frame(dba.report(dba_cdc1, th = 1, bCounts = FALSE))
+
+# add column marking significant peaks (p < 0.01 as per paper)
+diff_cdc1_df$significant <- diff_cdc1_df$p.value < 0.01
+```
+
+We will then save our results.
+```{r, warning=FALSE}
+write.csv(diff_cdc1_df, "results/diffbind/cdc1_diffbind_results.csv", row.names = FALSE)
+
+# save only significant peaks as BED file for downstream analysis (motif finding, annotation, etc.)
+write.table(diff_cdc1_df[diff_cdc1_df$p.value < 0.01, c("seqnames", "start", "end")], 
+            "results/diffbind/cdc1_significant_peaks.bed", 
+            sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+```
+
+Finally, we will generate visualizations, including an MA plot, volcano plot, PCA
+plot, and heatmap.
+```{r, warning=FALSE}
+# MA plot: shows fold change vs average expression (red = significant)
+dba.plotMA(dba_cdc1)
+```
+
+```{r, warning=FALSE}
+# volcano plot: shows fold change vs significance (points far from center = interesting)
+dba.plotVolcano(dba_cdc1)
+```
+
+```{r, warning=FALSE}
+# PCA plot: shows how similar samples are (different conditions should cluster together)
+dba.plotPCA(dba_cdc1, attributes = DBA_CONDITION, label = DBA_REPLICATE)
+```
+
+```{r, warning=FALSE}
+# heatmap
+dba.plotHeatmap(dba_cdc1)
+```
+
+We will now repeat the same process for analysis of cDC2 cells.
+```{r, message=FALSE, warning=FALSE}
+dba_cdc2 <- dba(sampleSheet = samples_cdc2)
+
+dba_cdc2 <- dba.count(dba_cdc2, minOverlap = 2, score = DBA_SCORE_TMM_MINUS_FULL)
+
+dba_cdc2 <- dba.contrast(dba_cdc2, categories = DBA_CONDITION, minMembers = 2)
+
+dba_cdc2 <- dba.analyze(dba_cdc2, method = DBA_DESEQ2, bBlacklist = FALSE, bGreylist = FALSE)
+
+diff_cdc2_df <- as.data.frame(dba.report(dba_cdc2, th = 1, bCounts = FALSE))
+diff_cdc2_df$significant <- diff_cdc2_df$p.value < 0.01
+
+write.csv(diff_cdc2_df, "results/diffbind/cdc2_diffbind_results.csv", row.names = FALSE)
+write.table(diff_cdc2_df[diff_cdc2_df$p.value < 0.01, c("seqnames", "start", "end")], 
+            "results/diffbind/cdc2_significant_peaks.bed", 
+            sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+```
+
+Then, we will generate the same visualizations for cDC2 cells.
+```{r, warning=FALSE}
+dba.plotMA(dba_cdc2)
+```
+
+```{r, warning=FALSE}
+dba.plotVolcano(dba_cdc2)
+```
+
+```{r, warning=FALSE}
+dba.plotPCA(dba_cdc2, attributes = DBA_CONDITION, label = DBA_REPLICATE)
+```
+
+```{r, warning=FALSE}
+dba.plotHeatmap(dba_cdc2)
+```
+
+We will now print summary statistics, which show the total number of peaks analyzed
+and the total number of significantly different peaks.
+```{r, warning=FALSE}
+cat("cDC1: Total =", nrow(diff_cdc1_df), "| Sig (p<0.01) =", sum(diff_cdc1_df$p.value < 0.01), "\n")
+cat("cDC2: Total =", nrow(diff_cdc2_df), "| Sig (p<0.01) =", sum(diff_cdc2_df$p.value < 0.01), "\n")
+```
+
+
+

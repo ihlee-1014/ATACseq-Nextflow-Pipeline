@@ -1,0 +1,109 @@
+---
+editor_options:
+  markdown:
+    wrap: 72
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+# BF 528 Fall 2025 Final Project Report
+Name: Iris Lee  
+Date: 12/15/25  
+
+## Quality Control Evaluation & Alignment Statistics
+
+Based on the MultiQC report and accompanying QC metrics from FASTQC, Trimmomatic, and `samtools flagstat`, the sequencing reads appear to be of generally high quality. FASTQC flagged no major quality issues aside from duplication levels, which ranged from 14.8%-25.0% across samples due to modest library complexity or samples containing substantial open chromatin regions. Samples had very minimal adapter contamination (<0.1%). Nextera transposase adapters were successfully removed via Trimmomatic, and FASTQ was run after Trimmomatic to minimize adapter detection. Trimmomatic performance was strong, with high percentages of surviving reads across all samples (close to 100%). MultiQC detected only two overrepresented sequences in the cDC1 samples, each present at low levels (<0.1%), suggesting no substantial contamination or artifact. Based on this evaluation, we believe that the sequence runs and library preparations were successful, and the experiment was of high quality and thus suitable for downstream analyses.
+
+ Below is a table outlining total numbers as well as percentages of mapped reads based on `samtools flagstat`:  
+
+| Sample Name    | Mapped Reads | % of Mapped Reads |
+| -------- | ------- | ------- |
+| KO1_rep1  | 30,197,277 | 97.17% |
+| KO2_rep1 | 26,552,373 | 97.32% |
+| WT1_rep1 | 21,756,455 | 97.05% |
+| WT2_rep1 | 25,953,405 | 97.21% |
+| KO1_rep2  | 31,631,031 | 97.71% |
+| KO2_rep2 | 31,928,725 | 97.39% |
+| WT1_rep2 | 29,387,112 | 97.63% |
+| WT2_rep2 | 32,865,149 | 97.31% |
+
+Alignment metrics reveal that a majority of the reads mapped to the reference genome across all samples, with mapping rates consistent between cDC1 and cDC2 groups. This suggests that there are no sample-specific failures or batch effects. Based on this evaluation, we believe that the library preparation and alignment processes were successful, and the experiment was of high quality and thus suitable for downstream analysis.
+
+## QC Metrics
+
+After converting the GRCm39 `.gtf` file to a `.bed` file and using `deeptools computeMatrix` and `deeptools plotProfile`, TSS enrichment scores were calculated for each sample: 
+
+| Sample Name    | TSS Enrichment Score |
+| -------- | ------- |
+| KO1_rep1  | 4.42 |
+| KO2_rep1 | 4.59 |
+| WT1_rep1 | 4.40 |
+| WT2_rep1 | 4.19 |
+| KO1_rep2  | 4.59 |
+| KO2_rep2 | 5.03 | 
+| WT1_rep2 | 4.81 |
+| WT2_rep2 | 4.71 |
+
+The TSS enrichment scores for the cDC1 and cDC2 samples range from 4.19 to 5.03 and are highly consistent across samples, suggesting reproducible ATAC-seq signal centered at transcription start sites. While these values are somewhat lower than what is considered high-depth or exceptionally clean ATAC-seq datasets, they still reflect clear enrichment of accessible chromatin at promoters relative to surrounding regions. The tight clustering of scores across samples suggests that the differences observed are not driven by technical variability or sample-specific failures, but reflect uniform library quality and sequencing performance. Overall, the TSS enrichment scores indicate that the ATAC-seq experiment was generally successful.
+
+Below is a table of FRiP scores for each sample:
+
+| Sample Name    | FRiP Score |
+| -------- | ------- |
+| KO1_rep1  | 0.25 |
+| KO2_rep1 | 0.27 |
+| WT1_rep1 | 0.27 |
+| WT2_rep1 | 0.21 |
+| KO1_rep2  | 0.22 |
+| KO2_rep2 | 0.28 | 
+| WT1_rep2 | 0.24 |
+| WT2_rep2 | 0.21 |
+
+The FRiP scores across all eight samples range from 0.21 to 0.28, which is within the expected range for high-quality bulk ATAC-seq data and indicates that a substantial fraction of reads fall within called peaks. The consistency of FRiP values across KO and WT conditions and between biological replicates suggest good reproducibility and minimal technical variability. The scores are also evidence of strong signal-to-noise and effective enrichment of accessible chromatin, and thus an overall successful experiment.
+
+## Peaks & Enrichment Analysis
+
+Our Diffbind analysis reported that there are 279 significant peaks for cDC1 and 622 significant peaks for cDC2.
+
+To analyze our significant peaks, we used Stanford's GREAT (Genomic Region Enrichment Annotation Tool). We input our Diffbind BED files of significant peaks for cDC1 and cDC2 as the test sets, used the whole genome as the background, used the mouse genome GRCh38 for the assembly, and the basal+extension with +500 kb and -100 from the promoter and 1000 kb max extension. 
+
+Below is a table of the top GO Biological Process results:  
+
+| Term Name    | Binom Raw P-value | Binom Observed Region Hits | Binom Region Set Coverage | Hyper Observed Gene Hits | Hyper Gene Set Coverage
+| -------- | ------- | ------- | ------- | ------- | ------- |
+| regulation of actin cytoskeleton organization  | 6.4374e-5 | 35 | 5.63% | 29 | 2.86% |
+| myeloid cell differentiation  | 8.1556e-5 | 27 | 4.34% | 26 | 2.56% |
+| myeloid leukocyte activation | 1.9363e-4 | 15 | 2.41% | 13 | 1.28% |
+| regulation of peptidyl-tyrosine phosphorylation | 2.5543e-4 | 31 | 4.98% | 28 | 2.76% |
+
+The top enriched GO biological processes are consistent with functions of dendritic cells and support the biological relevance of the ATAC-seq dataset. Terms related to myeloid cell differentiation and myeloid leukocyte activation indicate that the accessible chromatin regions are associated with genes involved in lineage specification and immune function. Enrichment for regulation of actin cytoskeleton organization and peptidyl-tyrosine phosphorylation further suggests activation of signaling and structural pathways important for cell motility, antigen, uptake, and downstream immune responses. Overall these results indicate that the identified accessible regions are linked to the characteristics of dendritic cell biology.
+
+Below are screenshots of the top results from the "knownResults" output from HOMER `findMotifsGenome` for both cDC1 and cDC2 samples:  
+
+![cDC1 Top 10 Motifs](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/findmotifsgenome/cdc1_top10_knownResults.png)
+![cDC2 Top 10 Motifs](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/findmotifsgenome/cdc2_top10_knownResults.png)
+Comparing the motif enrichment results between cDC1 and cDC2, the data is highly consistent with known dendritic cell biology while also highlighting meaningful cell-type-specific differences. In both groups, ETS-family motifs (i.e. PU.1 and SpiB) are the most significantly enriched, which is expected given their central role in dendritic cell lineage specification and confirms that the ATAC-seq peaks capture biologically relevant regulatory regions. However, cDC2 shows a stronger enrichment for bZIP family motifs (i.e. JunB, Fos, BATF, ATF3, FOSL family members), indicating a greater contribution of AP-1-associated regulatory programs in the cDC2 group. On the other hand, in cDC1, ETS-related motifs dominate more strongly and bZIP motifs are less prominent. Overall, these results suggest that the ATAC-seq experiment succeeded technically and reflected biologically meaningful differences between sample groups.
+
+Using our generated matrices for each cell type, we will recreate figures 6A and 6D from the original paper:
+
+![cDC1 Heatmap](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/plotheatmap/cDC1_heatmap.png)
+
+![cDC2 Heatmap](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/plotheatmap/cDC2_heatmap.png)
+
+Overall, the reproduced heatmaps are broadly consistent with the original publication in terms of ATAC-seq quality and global signal structure, but they differ slightly in biological contexts and how the signal is organized. In both the original figures and the reproduced figures, there is a clear, sharp enrichment of signal at the TSS with flanking nucleosomal signal, indicating successful ATAC-seq and comparable chromatin accessibility profiles in cDC1 and cDC2 cells. The presence of a strong central NFR and symmetric signal decay on either side in the reproduced heatmaps mirrors the pattern from the original paper. However, a key difference is that the original paper's figures are separated into *Gain* and *Loss* categories and visualized across different genotypes or conditions, which highlights condition-specific changes in accessibility. On the other hand, the reproduced heatmaps are not explicitly divided into gain/loss groups and present aggregated signal across TSS clusters, emphasizing overall accessibility and reproducibility rather than directional changes. In conclusion, the reproduced heatmaps reflect QC and global accessibility validation, and the original figures demonstrate condition-dependent chromatin remodeling.
+
+Using our Diffbind analysis, we will recreate figures 6B and 6E from the original paper:  
+![cDC1 Volcano Plot](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cdc1_volcano.png)
+
+![cDC2 Volcano Plot](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/cdc2_volcano.png)
+The reproduced volcano plots are generally consistent with the original publication in that they show limited but directional changes in chromatin accessibility between KO and WT samples, indicating that the core biological signal is preserved. However, the reproduced plots show a much tighter clustering of features around zero log2 fold change and substantially fewer significant regions, reflecting weaker effect sizes and reduced statistical power. The original study displays clearer quadrant separation and more pronounced gain and loss patterns, while the reproduced figures emphasize overall stability. Overall, the reproduced figures support the same biological trends as the original work.
+
+Using our bigWig files from `deeptools bamCoverage` and the IGV genome browser, we will recreate figures 6C and 6F from the original paper:  
+
+![IGV for cDC1 Maged1](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/igv_cdc1_Maged1.png)
+![IGV for cDC1 Spib](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/igv_cdc1_Spib.png)
+![IGV for cDC2 Spib](/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/results/igv_cdc2_Spib.png)
+
+As shown by our IGV tracks, our results do detect reproducible, statistically supported ATAC-seq peaks within both the Maged1 and Spib genes, which is consistent with the original paper's original figures. Minor differences, including variations in peak height, background input signal, or exact peak boundaries, may arise from differences in genomes (GRCm39 vs. GRCm38), sequencing depth, mapping pipelines, or normalization methods.

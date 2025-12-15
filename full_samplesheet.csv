@@ -1,0 +1,9 @@
+name,path
+KO1_rep1,/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/samples/SRR28895187.fastq.gz
+KO1_rep2,/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/samples/SRR28895188.fastq.gz
+KO2_rep1,/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/samples/SRR28895183.fastq.gz
+KO2_rep2,/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/samples/SRR28895184.fastq.gz
+WT1_rep1,/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/samples/SRR28895189.fastq.gz
+WT1_rep2,/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/samples/SRR28895190.fastq.gz
+WT2_rep1,/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/samples/SRR28895185.fastq.gz
+WT2_rep2,/projectnb/bf528/students/ihlee14/final-project-template-ihlee-1014/samples/SRR28895186.fastq.gz
