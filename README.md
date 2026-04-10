@@ -1,11 +1,11 @@
-# BF 528 Fall 2025 Final Project
+# ATAC-Seq Nextflow Pipeline
 Name: Iris Lee  
 Date: 12/15/25  
 
 The following README contains directions on how to run the project pipeline.
 
 ## README
-Our final project is based on [Fernandes et al. 2024](https://www.cell.com/cell-reports/fulltext/S2211-1247(24)00636-3?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS2211124724006363%3Fshowall%3Dtrue#fig6),
+This project is based on [Fernandes et al. 2024](https://www.cell.com/cell-reports/fulltext/S2211-1247(24)00636-3?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS2211124724006363%3Fshowall%3Dtrue#fig6),
 which is focused on chromatin accessibility as assayed by ATAC-seq. In this project, we generate an end-to-end pipeline for experiment and replicate some figures from the original paper.  
 
 This repository consists of the following files:  
